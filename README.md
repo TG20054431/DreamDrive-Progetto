@@ -13,7 +13,11 @@ _______________________________________________________
 
 _______________________________________________________
 
-da (all'admin) di visionare solamente una dashboard contenente le informazioni degli utenti e delle prenotazioni.
+da (all'admin) di visionare solamente la propria dashboard. 
+
+# 📊 Dashboard Admin
+
+La dashboard dell'admin permette di visualizzare le informazioni inerenti ai vari utenti registrati, come ad esempio nome utente, importo pagamento, data prenotazione; è presente inoltre la possibilità di ricerca tramite filtri delle informazioni inerenti una cerchia di utenti più ristretta e dettagliata.
 
 # 👨‍💻 Utente registrato 
 
