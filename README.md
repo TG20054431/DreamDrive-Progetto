@@ -25,6 +25,10 @@ L'utente, una volta registrato può selezionare il servizio che più desidera, s
 
 Per tutti e due i servizi vengono salvate le varie informazioni in una tabella del database che contiene data e ora della prenotazione, tipo di servizio, quantitativo del pagamento e auto scelta.
 
+# 🪪 Profilo utente
+
+All'interno del profilo utente sono disponibili le informazioni riguardo l'utente loggato, come email, storico prenotazioni e prenotazioni attive, con un resoconto della/e stessa/e.
+
 # 👤 Utente non registrato 
 
 L'utente non registrato ha la possibilità di navigare all'interno del sito per scoprire le tipologie di servizio, visionare una gallery dove sono contenute le varie auto disponibili, leggere le recensioni degli utenti e creare un nuovo account.
