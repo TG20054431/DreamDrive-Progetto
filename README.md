@@ -1,13 +1,21 @@
-# 🏁 DreamDrive 🚗
+# 🏁 DreamDrive 
 
 Applicazione web che permette la prenotazione di Noleggio Auto o Track-Day in circuiti autorizzati.
 
 # 👁 Admin
 
-L'admin dell'applicazione può visualizzare gli utenti registrati con le relative prenotazioni attive e pagamenti, con la facoltà di eliminare le prenotazioni e gli utenti.
+L'admin dell'applicazione può visualizzare gli utenti registrati con le relative prenotazioni attive e pagamenti, con la facoltà di eliminare le prenotazioni e gli utenti. 
+L'accesso con le credenziali: 
+•email: admin@gmail.com
+•password: admin1234
+da (all'admin) di visionare solamente una dashboard contenente le informazioni degli utenti e delle prenotazioni.
 
-# 👨‍💻 Utente 
+# 👨‍💻 Utente registrato 
 
 L'utente, una volta registrato può selezionare il servizio che più desidera, scegliendo l'auto e il numero di giorni per il noleggio o l'auto e il circuito in caso di track-day 
 
 Per tutti e due i servizi vengono salvate le varie informazioni in una tabella del database che contiene data e ora della prenotazione, tipo di servizio, quantitativo del pagamento e auto scelta.
+
+# 👤 Utente non registrato 
+
+L'utente non registrato ha la possibilità di navigare all'interno del sito per scoprire le tipologie di servizio, visionare una gallery dove sono contenute le varie auto disponibili, leggere le recensioni degli utenti e creare un nuovo account.
