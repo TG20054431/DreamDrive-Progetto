@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Recensioni</title>
+    <%- include('../partials/head') %>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        .star-rating {
+            color: teal;
+        }
+        .review-card {
+            border-left: 4px solid teal;
+            transition: transform 0.3s ease;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+        .review-header {
+            background-color: rgba(0, 128, 128, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="content-wrapper">
+        <div class="container mt-5" style="font-family: 'Tektur', sans-serif;">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h1 class="display-4">Recensioni dei nostri Clienti</h1>
+                    <p class="lead">Scopri cosa dicono i nostri clienti delle loro esperienze con DreamDrive</p>
+                </div>
+            </div>
+            
+            <!-- Form per inserire recensioni (solo per utenti loggati) -->
+            <% if (typeof user !== 'undefined' && user) { %>
+            <div class="row mb-5">
+                <div class="col-md-8 mx-auto">
+                    <div class="card shadow-sm">
+                        <div class="card-header" style="background-color: rgba(0, 128, 128, 0.1);">
+                            <h5 class="mb-0">Condividi la tua esperienza</h5>
+                        </div>
+                        <div class="card-body">
+                            <% if (typeof messages !== 'undefined' && messages.success) { %>
+                                <div class="alert alert-success">
+                                    <%= messages.success %>
+                                </div>
+                            <% } %>
+                            <% if (typeof messages !== 'undefined' && messages.error) { %>
+                                <div class="alert alert-danger">
+                                    <%= messages.error %>
+                                </div>
+                            <% } %>
+                            <form action="/recensioni" method="POST">
+                                <div class="mb-3">
+                                    <label class="form-label">Valutazione</label>
+                                    <div class="star-rating-input">
+                                        <div class="btn-group" role="group" aria-label="Star Rating">
+                                            <% for (let i = 1; i <= 5; i++) { %>
+                                                <input type="radio" class="btn-check" name="rating" id="star<%= i %>" value="<%= i %>" <%= i === 5 ? 'checked' : '' %>>
+                                                <label class="btn btn-outline-teal" for="star<%= i %>"><%= i %> <i class="bi bi-star-fill"></i></label>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="service" class="form-label">Servizio</label>
+                                    <select class="form-select" id="service" name="service" required>
+                                        <option value="">Seleziona il servizio</option>
+                                        <option value="Noleggio Auto">Noleggio Auto</option>
+                                        <option value="Track Day">Track Day</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="car" class="form-label">Auto</label>
+                                    <select class="form-select" id="car" name="car" required>
+                                        <option value="">Seleziona l'auto</option>
+                                        <optgroup label="Auto da Noleggio">
+                                            <option value="PORSCHE 911 GT3 RS">PORSCHE 911 GT3 RS</option>
+                                            <option value="FERRARI 458 ITALIA">FERRARI 458 ITALIA</option>
+                                            <option value="LAMBORGHINI AVENTADOR SVJ">LAMBORGHINI AVENTADOR SVJ</option>
+                                            <option value="MUSTANG SHELBY GT500">MUSTANG SHELBY GT500</option>
+                                            <option value="MERCEDES-BENZ AMG GT">MERCEDES-BENZ AMG GT</option>
+                                            <option value="ASTON MARTIN VANQUISH">ASTON MARTIN VANQUISH</option>
+                                        </optgroup>
+                                        <optgroup label="Auto da Track Day">
+                                            <option value="AUDI e-tron GT">AUDI e-tron GT</option>
+                                            <option value="PAGANI ZONDA R">PAGANI ZONDA R</option>
+                                            <option value="McLAREN SENNA GTR">McLAREN SENNA GTR</option>
+                                            <option value="LAMBORGHINI HURACÁN GT3 EVO 2">LAMBORGHINI HURACÁN GT3 EVO 2</option>
+                                            <option value="BUGATTI CHIRON">BUGATTI CHIRON</option>
+                                            <option value="NISSAN GTR R35 NISMO">NISSAN GTR R35 NISMO</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="review" class="form-label">La tua recensione</label>
+                                    <textarea class="form-control" id="review" name="review" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-teal">Invia Recensione</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } else { %>
+            <div class="row mb-4">
+                <div class="col-md-8 mx-auto">
+                    <div class="alert alert-info text-center">
+                        <p class="mb-0">Vuoi condividere la tua esperienza con DreamDrive? <a href="/login" class="text-teal">Accedi</a> o <a href="/registrazione" class="text-teal">Registrati</a> per lasciare una recensione!</p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <!-- Filtri Recensioni -->
+            <div class="row mb-4">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Filtra Recensioni</h5>
+                            <div class="d-flex justify-content-between mb-3">
+                                <button class="btn btn-outline-teal active" data-filter="all">Tutte</button>
+                                <button class="btn btn-outline-teal" data-filter="5">5 Stelle</button>
+                                <button class="btn btn-outline-teal" data-filter="4">4 Stelle</button>
+                                <button class="btn btn-outline-teal" data-filter="3">3 Stelle</button>
+                                <button class="btn btn-outline-teal" data-filter="1-2">1-2 Stelle</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recensioni -->
+            <div class="row" id="recensioni-container">
+                <!-- Display database reviews -->
+                <% if (typeof reviews !== 'undefined' && reviews.length > 0) { %>
+                    <% reviews.forEach(function(review) { %>
+                        <div class="col-lg-6 mb-4" data-rating="<%= review.rating %>">
+                            <div class="card review-card shadow-sm">
+                                <div class="card-header review-header d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5 class="mb-0"><%= review.name %></h5>
+                                        <small class="text-muted"><%= new Date(review.date).toLocaleDateString('it-IT') %></small>
+                                    </div>
+                                    <div class="star-rating">
+                                        <% for(let i = 0; i < 5; i++) { %>
+                                            <i class="bi bi-star<%= i < review.rating ? '-fill' : '' %>"></i>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-2"><%= review.car %> - <%= review.service %></h6>
+                                    <p class="card-text"><%= review.text %></p>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } %>
+
+                <!-- Keep existing static reviews -->
+                <div class="col-lg-6 mb-4" data-rating="4">
+                    <div class="card review-card shadow-sm">
+                        <div class="card-header review-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-0">Giulia Rossi</h5>
+                                <small class="text-muted">1 mese fa</small>
+                            </div>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2">Lamborghini Huracán - Noleggio Weekend</h6>
+                            <p class="card-text">Un weekend da sogno con la Lamborghini! L'auto era in perfette condizioni e il processo di noleggio è stato molto semplice. Unico neo: il prezzo, ma ne è valsa la pena!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4" data-rating="5">
+                    <div class="card review-card shadow-sm">
+                        <div class="card-header review-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-0">Alessandro Verdi</h5>
+                                <small class="text-muted">3 mesi fa</small>
+                            </div>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2">Porsche 911 - Track Day</h6>
+                            <p class="card-text">La Porsche 911 è un'auto straordinaria e l'esperienza sul circuito è stata indimenticabile. Gli istruttori sono competenti e pazienti. Consigliatissimo!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4" data-rating="3">
+                    <div class="card review-card shadow-sm">
+                        <div class="card-header review-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-0">Francesca Neri</h5>
+                                <small class="text-muted">2 mesi fa</small>
+                            </div>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star"></i>
+                                <i class="bi bi-star"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2">Audi R8 - Noleggio Settimanale</h6>
+                            <p class="card-text">Auto fantastica, ma avrei apprezzato una spiegazione più dettagliata delle funzionalità. Il servizio di consegna e ritiro è stato puntuale.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4" data-rating="5">
+                    <div class="card review-card shadow-sm">
+                        <div class="card-header review-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-0">Paolo Marini</h5>
+                                <small class="text-muted">2 settimane fa</small>
+                            </div>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2">McLaren 720S - Track Day</h6>
+                            <p class="card-text">La McLaren è semplicemente bestiale! Potenza pura ma anche incredibilmente controllabile. Gli istruttori sono stati eccezionali nell'insegnarmi come sfruttare al massimo l'auto.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts') %>
+    
+    <script>
+        // Filtro recensioni
+        document.querySelectorAll('[data-filter]').forEach(button => {
+            button.addEventListener('click', function() {
+                // Rimuovi classe active da tutti i bottoni
+                document.querySelectorAll('[data-filter]').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Aggiungi classe active al bottone cliccato
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                const reviews = document.querySelectorAll('#recensioni-container > div');
+                
+                reviews.forEach(review => {
+                    const rating = parseInt(review.getAttribute('data-rating'));
+                    
+                    if (filter === 'all') {
+                        review.style.display = 'block';
+                    } else if (filter === '1-2') {
+                        review.style.display = (rating <= 2) ? 'block' : 'none';
+                    } else if (parseInt(filter) === rating) {
+                        review.style.display = 'block';
+                    } else {
+                        review.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+                
+                reviews.forEach(review => {
+                    const rating = parseInt(review.getAttribute('data-rating'));
+                    
+                    if (filter === 'all') {
+                        review.style.display = 'block';
+                    } else if (filter === '1-2') {
+                        review.style.display = (rating <= 2) ? 'block' : 'none';
+                    } else if (parseInt(filter) === rating) {
+                        review.style.display = 'block';
+                    } else {
+                        review.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

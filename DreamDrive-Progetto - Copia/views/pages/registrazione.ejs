@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Registrazione</title>
+    <%- include('../partials/head') %>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-container .card {
+            border-left: 4px solid teal;
+        }
+        .form-container .card-header {
+            background-color: rgba(0, 128, 128, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="content-wrapper">
+        <div class="container mt-5" style="font-family: 'Tektur', sans-serif;">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h1 class="display-4">Registrazione</h1>
+                    <p class="lead">Crea un account per prenotare le tue esperienze con DreamDrive</p>
+                </div>
+            </div>
+            
+            <div class="form-container">
+                <div class="card shadow-sm">
+                    <div class="card-header">
+                        <h5 class="mb-0">Dati Personali</h5>
+                    </div>
+                    <div class="card-body">
+                        <% if (typeof messages !== 'undefined' && messages.error) { %>
+                            <div class="alert alert-danger">
+                                <%= messages.error %>
+                            </div>
+                        <% } %>
+                        
+                        <form action="/registrazione" method="POST">
+                            <!-- Add hidden field to pass service parameter -->
+                            <input type="hidden" name="serviceRedirect" value="<%= typeof serviceRedirect !== 'undefined' ? serviceRedirect : '' %>">
+                            
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nome e Cognome</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-teal text-white">
+                                        <i class="bi bi-person-fill"></i>
+                                    </span>
+                                    <input type="text" class="form-control" id="name" name="name" required
+                                           style="border-color: teal;">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-teal text-white">
+                                        <i class="bi bi-envelope-fill"></i>
+                                    </span>
+                                    <input type="email" class="form-control" id="email" name="email" required
+                                           style="border-color: teal;">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-teal text-white">
+                                        <i class="bi bi-lock-fill"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                           style="border-color: teal;">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Conferma Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-teal text-white">
+                                        <i class="bi bi-shield-lock-fill"></i>
+                                    </span>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required
+                                           style="border-color: teal;">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4 form-check">
+                                <input type="checkbox" class="form-check-input" id="terms" name="terms" required
+                                       style="border-color: teal;">
+                                <label class="form-check-label" for="terms">Accetto i termini e le condizioni</label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-teal w-100 py-2 fw-bold text-uppercase shadow-sm">Registrati</button>
+                        </form>
+                        
+                        <div class="mt-4 text-center">
+                            <p>Hai già un account? <a href="/login<%= typeof serviceRedirect !== 'undefined' && serviceRedirect ? '?service=' + serviceRedirect : '' %>" class="text-teal">Accedi qui</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts') %>
+</body>
+</html>

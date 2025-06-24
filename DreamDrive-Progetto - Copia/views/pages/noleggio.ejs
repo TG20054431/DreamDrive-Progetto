@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Noleggio</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Noleggio Auto</h1>
+        <p class="text-center lead">La nostra selezione di auto disponibili per il noleggio.</p>
+        <p class="text-center text-success fw-bold mb-4">Il costo per il noleggio di una singola auto è di €200 al giorno<br>E' necessario aver compiuto almeno 18 anni.</p>
+    
+        <!-- Filter Section -->
+        <div class="filters mb-4">
+            <div class="row g-3">
+                <!-- Nationality Filter -->
+                <div class="col-md-4">
+                    <select class="form-select" id="nationalityFilter">
+                        <option value="all">Tutte le Nazionalità</option>
+                        <option value="german">Germania</option>
+                        <option value="italian">Italia</option>
+                        <option value="british">Inghilterra</option>
+                        <option value="american">America</option>
+                    </select>
+                </div>
+                <!-- Brand Filter -->
+                <div class="col-md-4">
+                    <select class="form-select" id="brandFilter">
+                        <option value="all">Tutti i Brand</option>
+                        <option value="porsche">Porsche</option>
+                        <option value="ferrari">Ferrari</option>
+                        <option value="lamborghini">Lamborghini</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="aston">Aston Martin</option>
+                        <option value="ford">Ford</option>
+                    </select>
+                </div>
+                <!-- Engine Filter -->
+                <div class="col-md-4">
+                    <select class="form-select" id="engineFilter">
+                        <option value="all">Tutti i Motori</option>
+                        <option value="v8">V8</option>
+                        <option value="v12">V12</option>
+                        <option value="boxer">Boxer</option>
+                    </select>
+                </div>
+                <div class="col-12 text-center mt-3">
+                    <button id="searchButton" class="btn btn-teal px-4">Cerca</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" id="car-grid">
+            <div class="col" data-nationality="german" data-brand="porsche" data-engine="boxer">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo1.jpg" class="card-img-top card-img-fixed" alt="Porsche 911 GT3 RS">
+                    <div class="card-body">
+                        <h5 class="card-title">PORSCHE 911 GT3 RS</h5>
+                        <p class="card-text">Motore boxer 6 cilindri aspirato, 4.0 litri, 525 CV, 0-100 km/h in 3.2 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=porsche-911" class="btn btn-teal">PRENOTA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-nationality="italian" data-brand="ferrari" data-engine="v8">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo3.jpg" class="card-img-top card-img-fixed" alt="Ferrari 458 Italia">
+                    <div class="card-body">
+                        <h5 class="card-title">FERRARI 458 ITALIA</h5>
+                        <p class="card-text">Motore V8 aspirato, 4.5 litri, 570 CV, 0-100 km/h in 3.4 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=ferrari-458" class="btn btn-teal">PRENOTA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-nationality="italian" data-brand="lamborghini" data-engine="v12">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo2.jpg" class="card-img-top card-img-fixed" alt="Lamborghini Aventador SVJ">
+                    <div class="card-body">
+                        <h5 class="card-title">LAMBORGHINI AVENTADOR SVJ</h5>
+                        <p class="card-text">Motore V12 aspirato, 6.5 litri, 770 CV, 0-100 km/h in 2.8 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=lamborghini-aventador" class="btn btn-teal">PRENOTA</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" data-nationality="american" data-brand="ford" data-engine="v8">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo4.jpg" class="card-img-top card-img-fixed" alt="Mustang Shelby GT500">
+                    <div class="card-body">
+                        <h5 class="card-title">MUSTANG SHELBY GT500</h5>
+                        <p class="card-text">Motore V8 sovralimentato, 5.2 litri, 700 CV, 0-100 km/h in 3.5 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=mustang-shelby" class="btn btn-teal">PRENOTA</a>
+                    </div>            
+                </div>
+            </div>
+            <div class="col" data-nationality="german" data-brand="mercedes" data-engine="v8">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo5.jpg" class="card-img-top card-img-fixed" alt="Mercedes-Benz AMG GT">
+                    <div class="card-body">
+                        <h5 class="card-title">MERCEDES-BENZ AMG GT</h5>
+                        <p class="card-text">Motore V8 Biturbo, 4.0 litri, 585 CV, 0-100 km/h in 3.2 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=mercedes-amg" class="btn btn-teal">PRENOTA</a>
+                    </div>            
+                </div>
+            </div>
+            <div class="col" data-nationality="british" data-brand="aston" data-engine="v12">
+                <div class="card h-100">
+                    <img src="/images/noleggio-auto/nolo6.jpg" class="card-img-top card-img-fixed" alt="Aston Martin Vanquish">
+                    <div class="card-body">
+                        <h5 class="card-title">ASTON MARTIN VANQUISH</h5>
+                        <p class="card-text">Motore V12 Biturbo, 5.2 litri, 835 CV, 0-100 km/h in 3.3 secondi.</p>
+                        <a href="/prenota?service=noleggio&car=aston-vanquish" class="btn btn-teal">PRENOTA</a>
+                    </div>            
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts', { customJS: 'noleggio.js' }) %>
+</body>
+</html>

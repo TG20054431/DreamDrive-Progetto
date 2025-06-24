@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Servizi</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    
+    <div class="intro-section text-center py-4">
+        <h1 class="display-5">I nostri servizi</h1>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <a href="/login?service=noleggio" class="card-link">
+                    <div class="card">
+                        <img src="/images/auto1.jpg" class="card-img-top" alt="Noleggio">
+                        <div class="card-body">
+                            <h5 class="card-title">Noleggio Supercar</h5>
+                            <p class="card-text">Noleggia una delle nostre supercar e vivi un'esperienza di guida indimenticabile.</p>
+                            <a href="/scegli-servizio?service=noleggio" class="btn btn-teal">Prenota Ora</a>
+                        </div>        
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="/login?service=track-day" class="card-link">
+                    <div class="card">
+                        <img src="/images/auto2.jpg" class="card-img-top" alt="Track Day">
+                        <div class="card-body">
+                            <h5 class="card-title">Track Day</h5>
+                            <p class="card-text">Metti alla prova le tue abilità di guida su uno dei nostri circuiti.</p>
+                            <a href="/scegli-servizio?service=track-day" class="btn btn-teal">Prenota Ora</a>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/scripts') %>
+</body>
+</html>

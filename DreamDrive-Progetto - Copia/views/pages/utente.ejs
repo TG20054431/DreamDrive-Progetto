@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Profilo Utente</title>
+    <%- include('../partials/head') %>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Corretto il riferimento al partial della navbar (era 'nav', dovrebbe essere 'navbar') -->
+    <%- include('../partials/navbar') %>
+
+    <div class="content-wrapper">
+        <div class="container mt-5" style="font-family: 'Tektur', sans-serif;">
+            <!-- Original user profile content here -->
+            <div class="row">
+                <!-- Profilo utente -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-person-circle mb-3" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                            </svg>
+                            <h4 id="userName">
+                                <% if (typeof user !== 'undefined' && user) { %>
+                                    <%= user.name %>
+                                <% } else { %>
+                                    Nome Utente
+                                <% } %>
+                            </h4>
+                            <p id="userEmail">
+                                <% if (typeof user !== 'undefined' && user) { %>
+                                    <%= user.email %>
+                                <% } else { %>
+                                    demo@example.com
+                                <% } %>
+                            </p>
+                            <a href="/logout" class="btn btn-outline-danger w-100">Logout</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prenotazioni -->
+                <div class="col-md-8">
+                    <h3 class="mb-4">Le tue prenotazioni</h3>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Prenotazioni Attive</h5>
+                            <div id="activeBookings">
+                                <% if (typeof bookings !== 'undefined' && bookings && bookings.length > 0) { %>
+                                    <% bookings.forEach(function(booking) { %>
+                                        <div class="booking-item mb-3 p-3 border rounded">
+                                            <h6>Servizio: <%= booking.service || booking.servizio || booking.tipologia || 'N/D' %></h6>
+                                            <p>Data: <%= new Date(booking.date || booking.data_prenotazione).toLocaleDateString('it-IT') %></p>
+                                            <!-- Uniformato il campo auto tra le due sezioni -->
+                                            <p>Auto: <%= booking.auto || (booking.marca ? booking.marca + ' ' + booking.modello : 'N/D') %></p>
+                                            <% if (booking.circuito) { %>
+                                                <p>Circuito: <%= booking.circuito %></p>
+                                            <% } %>
+                                            <% if (booking.durata) { %>
+                                                <p>Durata: <%= booking.durata %> giorni</p>
+                                            <% } %>
+                                            <p class="text-success fw-bold">Status: Confermata</p>
+                                        </div>
+                                    <% }) %>
+                                <% } else { %>
+                                    <p class="text-muted">Nessuna prenotazione attiva</p>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Storico Prenotazioni</h5>
+                            <div id="bookingHistory">
+                                <% if (typeof bookings !== 'undefined' && bookings && bookings.length > 0) { %>
+                                    <% bookings.forEach(function(booking) { %>
+                                        <div class="booking-item mb-3 p-3 border rounded">
+                                            <h6>Servizio: <%= booking.servizio || booking.service || booking.tipologia || 'N/D' %></h6>
+                                            <p>Data: <%= new Date(booking.date || booking.data_prenotazione).toLocaleDateString('it-IT') %></p>
+                                            <!-- Uniformato il campo auto tra le due sezioni -->
+                                            <p>Auto: <%= booking.auto || (booking.marca ? booking.marca + ' ' + booking.modello : 'N/D') %></p>
+                                            <% if (booking.circuito) { %>
+                                                <p>Circuito: <%= booking.circuito %></p>
+                                            <% } %>
+                                            <% if (booking.durata) { %>
+                                                <p>Durata: <%= booking.durata %> giorni</p>
+                                            <% } %>
+                                            <p>Importo: € <%= booking.amount || booking.importo || '0.00' %></p>
+                                            <p>Pagamento: <%= booking.paymentMethod === 'card' ? 'Carta di Credito' : 
+                                                            booking.paymentMethod === 'paypal' ? 'PayPal' : 'Bonifico Bancario' %></p>
+                                            <p class="text-success fw-bold">Status: <%= booking.status || 'Completata' %></p>
+                                        </div>
+                                    <% }) %>
+                                <% } else { %>
+                                    <p class="text-muted">Nessuna prenotazione precedente</p>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts') %>
+    <script>
+        // Rimosso il codice che manipola la history
+        // Questo codice stava causando problemi con la sessione
+        // window.addEventListener('DOMContentLoaded', function() {
+        //    history.replaceState(null, document.title, '/');
+        //    history.pushState(null, document.title, window.location.href);
+        // });
+    </script>
+</body>
+</html>

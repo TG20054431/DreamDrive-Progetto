@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <%- include('../partials/head', {title: 'Dettaglio Auto'}) %>
+</head>
+<body>
+  <%- include('../partials/navbar', {searchIcon: false, showHomeButton: true}) %>
+
+  <div class="container mt-5" id="auto-container">
+    <!-- Il contenuto verrà caricato dinamicamente tramite JavaScript -->
+    <div class="text-center">Caricamento...</div>
+  </div>
+
+  <%- include('../partials/footer') %>
+  <%- include('../partials/scripts', {additionalScripts: ['/js/dettaglio-auto.js']}) %>
+</body>
+</html>
+</html>

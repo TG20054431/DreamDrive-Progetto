@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Logo with slight padding on the left for consistency -->
+    <a class="navbar-brand ps-2" href="/">
+      <img src="/images/logo_bianco.jpg" alt="DreamDrive" height="70" class="logo-img">
+    </a>
+    
+    <!-- Hamburger menu for mobile - Updated to work properly -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <!-- Navigation items that collapse on mobile -->
+    <div class="collapse navbar-collapse justify-content-end pe-3" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/servizi">Servizi</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/recensioni">Recensioni</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contatti">Contatti</a>
+        </li>
+        
+        <!-- Pulsante profilo sempre visibile con lo stesso stile degli altri link -->
+        <li class="nav-item">
+          <a class="nav-link" href="<%= (locals.user || (typeof user !== 'undefined' && user)) ? '/utente' : '/login' %>">
+            <%= (locals.user || (typeof user !== 'undefined' && user)) ? 'Il mio profilo' : 'Area personale' %>
+          </a>
+        </li>
+        
+        <% if (locals.user || (typeof user !== 'undefined' && user)) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login">Accedi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/registrazione">Registrati</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<style>
+  /* Custom styling for the navbar */
+  .navbar {
+    padding-left: 0;
+  }
+  
+  .logo-img {
+    vertical-align: middle;
+  }
+  
+  /* Additional styling for mobile navigation */
+  @media (max-width: 991.98px) {
+    .navbar-collapse {
+      background-color: #343a40;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      border-radius: 0.25rem;
+    }
+    
+    .navbar-nav .nav-item {
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+    
+    .navbar-toggler {
+      border: none;
+    }
+    
+    .navbar-toggler:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+</style>
+</div>
+
+<style>
+  /* Custom styling for the navbar */
+  .navbar {
+    padding-left: 0;
+  }
+  
+  .logo-img {
+    vertical-align: middle;
+  }
+  
+  /* Remove any unused styles that were added previously */
+  .ms-n3 {
+    margin-left: -1rem !important;
+  }
+</style>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Prenotazione</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+    
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Prenota la tua esperienza</h1>
+        <div class="booking-form">
+            <form id="booking-form" method="POST" action="/prenota">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="nome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cognome" class="form-label">Cognome</label>
+                        <input type="text" class="form-control" id="cognome" name="cognome" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="telefono" class="form-label">Telefono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono" pattern="[0-9]*" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="servizio" class="form-label">Tipo di servizio</label>
+                        <select class="form-select" id="servizio" name="servizio" required>
+                            <option value="">Seleziona il servizio</option>
+                            <option value="noleggio">Noleggio</option>
+                            <option value="track-day">Track Day</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="auto" class="form-label">Auto selezionata</label>
+                        <select class="form-select" id="auto" name="auto" required>
+                            <option value="">Seleziona un'auto</option>
+                            <!-- Auto da Noleggio -->
+                            <option value="porsche-911">PORSCHE 911 GT3 RS</option>
+                            <option value="ferrari-458">FERRARI 458 ITALIA</option>
+                            <option value="lamborghini-aventador">LAMBORGHINI AVENTADOR SVJ</option>
+                            <option value="mustang-shelby">MUSTANG SHELBY GT500</option>
+                            <option value="mercedes-amg">MERCEDES-BENZ AMG GT</option>
+                            <option value="aston-vanquish">ASTON MARTIN VANQUISH</option>
+                            <!-- Auto da Track Day -->
+                            <option value="audi-etron">AUDI e-tron GT</option>
+                            <option value="pagani-zonda">PAGANI ZONDA R</option>
+                            <option value="mclaren-senna">McLAREN SENNA GTR</option>
+                            <option value="lamborghini-huracan">LAMBORGHINI HURACÁN GT3 EVO 2</option>
+                            <option value="bugatti-chiron">BUGATTI CHIRON</option>
+                            <option value="nissan-gtr">NISSAN GTR R35 NISMO</option>
+                        </select>
+                    </div>
+                    <div class="col-12" id="circuito-container" style="display: none;">
+                        <label for="circuito" class="form-label">Circuito</label>
+                        <select class="form-select" id="circuito" name="circuito">
+                            <option value="">Seleziona il circuito</option>
+                            <option value="monza">Autodromo Nazionale di Monza</option>
+                            <option value="mugello">Autodromo del Mugello</option>
+                            <option value="imola">Autodromo Enzo e Dino Ferrari (Imola)</option>
+                        </select>
+                    </div>
+                    <div class="col-12" id="durata-container" style="display: none;">
+                        <label for="durata" class="form-label">Durata del noleggio</label>
+                        <select class="form-select" id="durata" name="durata">
+                            <option value="">Seleziona i giorni</option>
+                            <option value="1">1 giorno</option>
+                            <option value="2">2 giorni</option>
+                            <option value="3">3 giorni</option>
+                            <option value="4">4 giorni</option>
+                            <option value="5">5 giorni</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="data" class="form-label">Data</label>
+                        <input type="date" class="form-control" id="data" name="data" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ora" class="form-label">Orario</label>
+                        <select class="form-select" id="ora" name="ora" required>
+                            <option value="" disabled selected>Scegli un orario</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                            <option value="17:00">17:00</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="note" class="form-label">Note aggiuntive</label>
+                        <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+                    </div>
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-teal px-5">Prenota</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts') %>
+    <script src="/js/date-time-validation.js"></script>
+    
+    <script>
+        // Get the service parameter from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const serviceParam = urlParams.get('service');
+        
+        // Function to show/hide fields based on service type
+        function toggleServiceFields(service) {
+            const circuitoContainer = document.getElementById('circuito-container');
+            const durataContainer = document.getElementById('durata-container');
+            const autoSelect = document.getElementById('auto');
+            
+            if (service === 'track-day') {
+                circuitoContainer.style.display = 'block';
+                durataContainer.style.display = 'none';
+                document.getElementById('circuito').required = true;
+                document.getElementById('durata').required = false;
+                
+                // Filter auto options for track day
+                filterAutoOptions('track-day');
+            } else if (service === 'noleggio') {
+                circuitoContainer.style.display = 'none';
+                durataContainer.style.display = 'block';
+                document.getElementById('circuito').required = false;
+                document.getElementById('durata').required = true;
+                
+                // Filter auto options for rental
+                filterAutoOptions('noleggio');
+            } else {
+                circuitoContainer.style.display = 'none';
+                durataContainer.style.display = 'none';
+                document.getElementById('circuito').required = false;
+                document.getElementById('durata').required = false;
+            }
+        }
+        
+        // Function to filter car options based on service
+        function filterAutoOptions(service) {
+            const autoSelect = document.getElementById('auto');
+            const options = autoSelect.querySelectorAll('option');
+            
+            // Reset all options
+            options.forEach(option => {
+                option.style.display = 'block';
+            });
+            
+            // Group cars by service type
+            const trackDayCars = ['audi-etron', 'pagani-zonda', 'mclaren-senna', 'lamborghini-huracan', 'bugatti-chiron', 'nissan-gtr'];
+            const rentalCars = ['porsche-911', 'ferrari-458', 'lamborghini-aventador', 'mustang-shelby', 'mercedes-amg', 'aston-vanquish'];
+            
+            // Hide irrelevant options based on service
+            if (service === 'track-day') {
+                options.forEach(option => {
+                    if (!trackDayCars.includes(option.value) && option.value !== '') {
+                        option.style.display = 'none';
+                    }
+                });
+            } else if (service === 'noleggio') {
+                options.forEach(option => {
+                    if (!rentalCars.includes(option.value) && option.value !== '') {
+                        option.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        // Set service value if provided in URL
+        if (serviceParam) {
+            const servicioSelect = document.getElementById('servizio');
+            servicioSelect.value = serviceParam;
+            toggleServiceFields(serviceParam);
+        }
+        
+        // Add event listener to service select
+        document.getElementById('servizio').addEventListener('change', function() {
+            toggleServiceFields(this.value);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Registrazione</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header bg-teal text-white text-center">
+                        <h4 class="mb-0">Registrati</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="registerForm" method="POST" action="/register">
+                            <div class="mb-3">
+                                <label for="registerName" class="form-label">Nome e Cognome</label>
+                                <input type="text" class="form-control" id="registerName" name="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="birthDate" class="form-label">Data di nascita</label>
+                                <input type="date" class="form-control" id="birthDate" name="birthDate" required>
+                                <div class="text-danger mt-1 d-none" id="ageError">
+                                    Devi avere almeno 18 anni per registrarti.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="registerEmail" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="registerPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="registerPassword" name="password" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Conferma Password</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-teal w-100 mb-3" id="registerButton">Registrati</button>
+                            <div class="text-center">
+                                <p class="mb-0">Hai già un account?</p>
+                                <a href="/login" class="text-teal">Accedi qui</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/scripts') %>
+</body>
+</html>

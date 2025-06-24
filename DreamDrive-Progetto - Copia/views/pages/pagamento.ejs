@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Pagamento</title>
+    <%- include('../partials/head') %>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+        }
+        .payment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .payment-card {
+            border-left: 4px solid teal;
+        }
+        .method-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .method-card:hover, .method-card.selected {
+            border-color: teal;
+            background-color: rgba(0, 128, 128, 0.05);
+        }
+        .method-card.selected {
+            box-shadow: 0 0 0 2px teal;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="content-wrapper">
+        <div class="container mt-5" style="font-family: 'Tektur', sans-serif;">
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <h1 class="display-4">Pagamento</h1>
+                    <p class="lead">Completa la tua prenotazione</p>
+                </div>
+            </div>
+            
+            <div class="payment-container">
+                <!-- Riepilogo Prenotazione -->
+                <div class="card shadow-sm mb-4 payment-card">
+                    <div class="card-header" style="background-color: rgba(0, 128, 128, 0.1);">
+                        <h5 class="mb-0">Riepilogo Prenotazione</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Nome:</strong> <%= booking.nome %> <%= booking.cognome %></p>
+                                <p><strong>Email:</strong> <%= booking.email %></p>
+                                <p><strong>Telefono:</strong> <%= booking.telefono %></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Servizio:</strong> <%= booking.servizio === 'noleggio' ? 'Noleggio Auto' : 'Track Day' %></p>
+                                <p><strong>Auto:</strong> <%= booking.auto %></p>
+                                <p><strong>Data:</strong> <%= booking.data %> alle <%= booking.ora %></p>
+                                
+                                <% if (booking.servizio === 'noleggio' && booking.durata) { %>
+                                    <p><strong>Durata:</strong> <%= booking.durata %> giorni</p>
+                                <% } else if (booking.servizio === 'track-day' && booking.circuito) { %>
+                                    <p><strong>Circuito:</strong> <%= booking.circuito %></p>
+                                <% } %>
+                            </div>
+                        </div>
+                        
+                        <!-- Calcolo prezzo (dimostrativo) -->
+                        <% 
+                            let basePrice = 0;
+                            if(booking.servizio === 'noleggio') {
+                                // Prezzi base per noleggio in base all'auto
+                                const rentalPrices = {
+                                    'porsche-911': 500,
+                                    'ferrari-458': 700,
+                                    'lamborghini-aventador': 900,
+                                    'mustang-shelby': 450,
+                                    'mercedes-amg': 550,
+                                    'aston-vanquish': 650
+                                };
+                                basePrice = (rentalPrices[booking.auto] || 500) * (parseInt(booking.durata) || 1);
+                            } else {
+                                // Prezzi base per track day in base all'auto
+                                const trackPrices = {
+                                    'audi-etron': 400,
+                                    'pagani-zonda': 1200,
+                                    'mclaren-senna': 1000,
+                                    'lamborghini-huracan': 800,
+                                    'bugatti-chiron': 1500,
+                                    'nissan-gtr': 600
+                                };
+                                basePrice = trackPrices[booking.auto] || 600;
+                            }
+                            const taxAmount = basePrice * 0.22; // IVA al 22%
+                            const totalAmount = basePrice + taxAmount;
+                        %>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <hr>
+                                <h5>Dettagli Pagamento</h5>
+                                <div class="d-flex justify-content-between">
+                                    <span>Prezzo Base:</span>
+                                    <span>€ <%= basePrice.toFixed(2) %></span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>IVA (22%):</span>
+                                    <span>€ <%= taxAmount.toFixed(2) %></span>
+                                </div>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <span class="fw-bold">Totale:</span>
+                                    <span class="fw-bold">€ <%= totalAmount.toFixed(2) %></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Metodi di Pagamento -->
+                <div class="card shadow-sm mb-4 payment-card">
+                    <div class="card-header" style="background-color: rgba(0, 128, 128, 0.1);">
+                        <h5 class="mb-0">Metodo di Pagamento</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="payment-form" method="POST" action="/pagamento">
+                            <!-- Metodi di pagamento -->
+                            <div class="row mb-4">
+                                <div class="col-md-4 mb-3">
+                                    <div class="card method-card" data-method="card">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-credit-card-2-front fs-1 text-teal"></i>
+                                            <p class="mb-0 mt-2">Carta di Credito</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card method-card" data-method="paypal">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-paypal fs-1 text-teal"></i>
+                                            <p class="mb-0 mt-2">PayPal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="card method-card" data-method="bank">
+                                        <div class="card-body text-center">
+                                            <i class="bi bi-bank fs-1 text-teal"></i>
+                                            <p class="mb-0 mt-2">Bonifico Bancario</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Dettagli Carta -->
+                            <div id="card-details" class="payment-method-details">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label for="cardName" class="form-label">Intestatario Carta</label>
+                                        <input type="text" class="form-control" id="cardName" placeholder="Nome sulla carta">
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="cardNumber" class="form-label">Numero Carta</label>
+                                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cardExpiry" class="form-label">Data Scadenza</label>
+                                        <input type="text" class="form-control" id="cardExpiry" placeholder="MM/AA">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="cardCVC" class="form-label">CVC/CVV</label>
+                                        <input type="text" class="form-control" id="cardCVC" placeholder="123">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bonifico dettagli (nascosto inizialmente) -->
+                            <div id="bank-details" class="payment-method-details" style="display:none;">
+                                <div class="alert alert-info">
+                                    <h6>Dettagli per il bonifico bancario:</h6>
+                                    <p>Beneficiario: DreamDrive Srl</p>
+                                    <p>IBAN: IT60 X054 2811 1010 0000 0123 456</p>
+                                    <p>Causale: Prenotazione <%= booking.servizio %> - <%= booking.email %></p>
+                                    <p>Invia la ricevuta del bonifico a <strong>pagamenti@dreamdrive.it</strong></p>
+                                </div>
+                            </div>
+                            
+                            <!-- PayPal dettagli (nascosto inizialmente) -->
+                            <div id="paypal-details" class="payment-method-details" style="display:none;">
+                                <div class="alert alert-info text-center">
+                                    <p>Sarai reindirizzato a PayPal per completare il pagamento dopo aver cliccato su "Paga Ora".</p>
+                                </div>
+                            </div>
+                            
+                            <input type="hidden" name="paymentMethod" id="paymentMethod" value="card">
+                            <input type="hidden" name="amount" value="<%= totalAmount.toFixed(2) %>">
+                            
+                            <!-- Submit button -->
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-teal w-100 py-2 fw-bold">Paga Ora € <%= totalAmount.toFixed(2) %></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts') %>
+    
+    <script>
+        // Payment method selection
+        document.querySelectorAll('.method-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                
+                // Update UI
+                document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Update hidden field
+                document.getElementById('paymentMethod').value = method;
+                
+                // Show/hide payment details
+                document.querySelectorAll('.payment-method-details').forEach(d => d.style.display = 'none');
+                if(method === 'card') {
+                    document.getElementById('card-details').style.display = 'block';
+                } else if(method === 'bank') {
+                    document.getElementById('bank-details').style.display = 'block';
+                } else if(method === 'paypal') {
+                    document.getElementById('paypal-details').style.display = 'block';
+                }
+            });
+        });
+        
+        // Select card payment by default
+        document.querySelector('.method-card[data-method="card"]').click();
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Login</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-header bg-teal text-white text-center">
+                        <h4 class="mb-0">Accedi</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="loginForm" method="POST" action="/login">
+                            <input type="hidden" name="serviceRedirect" value="<%= typeof serviceRedirect !== 'undefined' ? serviceRedirect : '' %>">
+                            <div class="mb-3">
+                                <label for="loginEmail" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="loginEmail" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="loginPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="loginPassword" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-teal w-100 mb-3">Accedi</button>
+                            <div class="text-center">
+                                <p class="mb-0">Non hai un account?</p>
+                                <a href="/register" class="text-teal">Registrati qui</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/scripts') %>
+</body>
+</html>

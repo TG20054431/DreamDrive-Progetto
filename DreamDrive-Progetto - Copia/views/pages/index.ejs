@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>DreamDrive | Home</title>
+    <%- include('../partials/head') %>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="intro-section text-center py-4">
+        <h1 class="display-5">Benvenuto su DreamDrive</h1>
+        <p class="lead">Scopri il nostro mondo di auto da sogno e prestazioni straordinarie.</p>
+    </div>
+
+    <div class="banner-wallpaper">
+        <div class="overlay">
+            <div class="button-container">
+                <a href="/servizi" class="hover-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-check-fill me-2 d-none d-md-inline" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5m8.854-9.646a.5.5 0 0 0-.708-.708L7.5 7.793 6.354 6.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                    </svg>
+                    Prenota ora
+                </a>
+                <a href="/contatti" class="hover-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-outbound-fill me-2 d-none d-md-inline" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877zm10.761.135a.5.5 0 0 1 .708 0l2.5 2.5a.5.5 0 0 1 0 .708l-2.5 2.5a.5.5 0 0 1-.708-.708L14.293 4H9.5a.5.5 0 0 1 0-1h4.793l-1.647-1.646a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                    Contattaci
+                </a>
+                <a href="/recensioni" class="hover-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill me-2 d-none d-md-inline" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.197-.812-.149-.754-.575l.588-3.429-2.637-2.536c-.329-.318-.158-.888.283-.951l3.535-.514 1.578-3.194c.197-.386.735-.386.932 0l1.578 3.194 3.535.514c.441.063.612.633.283.951l-2.637 2.536.588 3.429c.058.426-.368.772-.754.575L8 13.187l-3.388 1.256z"/>
+                    </svg>
+                    Vedi Recensioni
+                </a>
+            </div>
+        </div>
+        <img src="/images/wallpaper.jpg" alt="Banner" class="img-fluid">
+    </div>
+
+    <div class="recensioni">
+        <div class="card">
+            <img src="/images/user1.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-quote-fill mb-2" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm7.194 2.766a1.7 1.7 0 0 0-.227-.272 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 5.734 4C4.776 4 4 4.746 4 5.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.5 2.5 0 0 0-.227-.4zM11 7.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.5 2.5 0 0 0-.228-.4 1.7 1.7 0 0 0-.227-.273 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 10.07 4c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+                </svg>
+                <p class="card-text">"Un'emozione unica! Ho potuto passare un'intera settimana al volante dell'auto dei miei sogni!"</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/images/user2.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-quote-fill mb-2" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm7.194 2.766a1.7 1.7 0 0 0-.227-.272 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 5.734 4C4.776 4 4 4.746 4 5.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.5 2.5 0 0 0-.227-.4zM11 7.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.5 2.5 0 0 0-.228-.4 1.7 1.7 0 0 0-.227-.273 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 10.07 4c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+                </svg>
+                <p class="card-text">"Poter vivere una giornata in pista, a bordo di un'auto così performante, è qualcosa di inspiegabile!"</p>
+            </div>
+        </div>
+        <div class="card">
+            <img src="/images/user3.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-quote-fill mb-2" viewBox="0 0 16 16">
+                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.5a1 1 0 0 0-.8.4l-1.9 2.533a1 1 0 0 1-1.6 0L5.3 12.4a1 1 0 0 0-.8-.4H2a2 2 0 0 1-2-2zm7.194 2.766a1.7 1.7 0 0 0-.227-.272 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 5.734 4C4.776 4 4 4.746 4 5.667c0 .92.776 1.666 1.734 1.666.343 0 .662-.095.931-.26-.137.389-.39.804-.81 1.22a.405.405 0 0 0 .011.59c.173.16.447.155.614-.01 1.334-1.329 1.37-2.758.941-3.706a2.5 2.5 0 0 0-.227-.4zM11 7.073c-.136.389-.39.804-.81 1.22a.405.405 0 0 0 .012.59c.172.16.446.155.613-.01 1.334-1.329 1.37-2.758.942-3.706a2.5 2.5 0 0 0-.228-.4 1.7 1.7 0 0 0-.227-.273 1.5 1.5 0 0 0-.469-.324l-.008-.004A1.8 1.8 0 0 0 10.07 4c-.957 0-1.734.746-1.734 1.667 0 .92.777 1.666 1.734 1.666.343 0 .662-.095.931-.26z"/>
+                </svg>
+                <p class="card-text">"Sono veramente soddisfatto di essermi affidato a DreamDrive per questa esperienza!"</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner text-white py-4">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h5>Contattaci</h5>
+                    <p>Email: <a href="mailto:info@dreamdrive.com" class="text-white text-decoration-none">info@dreamdrive.com</a></p>
+                    <p>Tel: +39 123 456 7890</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Dove Siamo</h5>
+                    <p>Via Roma 123</p>
+                    <p>20100 Milano (MI)</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Orari</h5>
+                    <p>Lun-Ven: 9:00-18:00</p>
+                    <p>Sab: 9:00-12:00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+    <%- include('../partials/scripts', { customJS: 'index.js' }) %>
+</body>
+</html>
