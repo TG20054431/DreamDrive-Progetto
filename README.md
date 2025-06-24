@@ -6,8 +6,13 @@ Applicazione web che permette la prenotazione di Noleggio Auto o Track-Day in ci
 
 L'admin dell'applicazione può visualizzare gli utenti registrati con le relative prenotazioni attive e pagamenti, con la facoltà di eliminare le prenotazioni e gli utenti. 
 L'accesso con le credenziali: 
+_______________________________________________________
+
 • email: admin@gmail.com
 • password: admin1234
+
+_______________________________________________________
+
 da (all'admin) di visionare solamente una dashboard contenente le informazioni degli utenti e delle prenotazioni.
 
 # 👨‍💻 Utente registrato 
