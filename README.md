@@ -47,7 +47,7 @@ aprire l'applicazione tramite:
 
 npm run dev
 
-una volta fatta partire verrà creato un link del tipo http://localhost/3000, al quale sarà disponibile l'applicazione web.
+una volta fatta partire verrà creato un link del tipo http://localhost:3000, al quale sarà disponibile l'applicazione web.
 
 _______________________________________________________
 
