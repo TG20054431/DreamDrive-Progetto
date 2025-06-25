@@ -23,7 +23,7 @@ La dashboard dell'admin permette di visualizzare le informazioni inerenti ai var
 
 L'utente, una volta registrato può selezionare il servizio che più desidera, scegliendo l'auto e il numero di giorni per il noleggio o l'auto e il circuito in caso di track-day 
 
-Per tutti e due i servizi vengono salvate le varie informazioni in una tabella del database che contiene data e ora della prenotazione, tipo di servizio, quantitativo del pagamento e auto scelta.
+Per tutti e due i servizi vengono salvate le varie informazioni in una tabella del database che contiene data e ora della prenotazione, tipo di servizio, importo del pagamento e auto scelta.
 
 # 🪪 Profilo utente
 
