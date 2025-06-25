@@ -35,7 +35,7 @@ L'utente non registrato ha la possibilità di navigare all'interno del sito per 
 
 # 🌀 Procedura di installazione
 
-📁 Nella cartella del progetto, per procedere con l'installazione, è necessario installare le dipendenze necessarie tramite:
+📁 Da terminale, nella cartella del progetto, per procedere con l'installazione, è necessario installare le dipendenze necessarie tramite:
 
 npm install
 
@@ -55,6 +55,8 @@ _______________________________________________________
 
 • email: marco.valdo@gmail.com
 • marcovaldo1234
+
+oppure visitare il sito come un utente non navigato e non registrato.
 _______________________________________________________
 
 # 📁 Struttura cartelle
